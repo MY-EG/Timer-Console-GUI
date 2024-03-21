@@ -82,7 +82,7 @@ if __name__=="__main__":
     clear()
     
     
-    #                                  =================== chos from the list ===================
+    #                                  =================== choose from the list ===================
 
     print("""
 0 -  Nothing
@@ -107,22 +107,22 @@ if __name__=="__main__":
 
     """)
 
-    print("Choose a number to Do it when the time finish :")
-    chos = input()
+    print("choose a number to Do it when the time finish :")
+    choose = input()
 
     # cleaning the screen ...
     clear()
 
-    chos=" "+chos+" "
+    choose=" "+choose+" "
 
     max=9
     for i in range(1,max+1):
-        if " "+str(i)+" " in chos:
+        if " "+str(i)+" " in choose:
             break
-        if i==max:chos='00'
+        if i==max:choose='00'
         
 
-    if ' 4 ' in chos:
+    if ' 4 ' in choose:
 
         print("Please enter the notification name :")
         notnam = input()
@@ -151,14 +151,14 @@ if __name__=="__main__":
         # cleaning the screen ...
         clear()
 
-    if ' 9 ' in chos:
+    if ' 9 ' in choose:
 
         print("Please enter the command :")
         comm = input()
         # cleaning the screen ...
         clear()
 
-    if ' 6 ' in chos:
+    if ' 6 ' in choose:
 
         print("Select music :")
         filetypes = (
@@ -172,7 +172,7 @@ if __name__=="__main__":
         # cleaning the screen ...
         clear()
 
-    if ' 7 ' in chos:
+    if ' 7 ' in choose:
 
         print("Select the file to open :")
         filelocation = filedialog.askopenfilename(
@@ -182,7 +182,7 @@ if __name__=="__main__":
         clear()
 
 
-    if ' 8 ' in chos:
+    if ' 8 ' in choose:
 
         print("Enter the link : ")
         link = input()
@@ -217,25 +217,25 @@ if __name__=="__main__":
 
     # print all required things ↓
 
-    if ' 1 ' in chos:print("\nShutdown The PC\n")
+    if ' 1 ' in choose:print("\nShutdown The PC\n")
 
-    if ' 2 ' in chos:print("\nRestart The PC\n")
+    if ' 2 ' in choose:print("\nRestart The PC\n")
 
-    if ' 3 ' in chos:print("\nSleep\n")
+    if ' 3 ' in choose:print("\nSleep\n")
 
-    if ' 4 ' in chos:print("\nSend a notification → " +notnam+"\n")
+    if ' 4 ' in choose:print("\nSend a notification → " +notnam+"\n")
 
-    if ' 5 ' in chos:print("\nSign out\n")
+    if ' 5 ' in choose:print("\nSign out\n")
 
-    if ' 6 ' in chos:print("\nPlay music → " +orr+"\n")
+    if ' 6 ' in choose:print("\nPlay music → " +orr+"\n")
 
-    if ' 7 ' in chos:print("\nOpen file → " +filelocation+"\n")
+    if ' 7 ' in choose:print("\nOpen file → " +filelocation+"\n")
 
-    if ' 8 ' in chos:print("\nOpen link in browser → " +link+"\n")
+    if ' 8 ' in choose:print("\nOpen link in browser → " +link+"\n")
 
-    if ' 9 ' in chos:print("\nRun CMD command → " +comm+"\n")
+    if ' 9 ' in choose:print("\nRun CMD command → " +comm+"\n")
 
-    if chos == '00':print("\nNothing\n")
+    if choose == '00':print("\nNothing\n")
 
 
 
@@ -251,28 +251,28 @@ if __name__=="__main__":
 
 
 
-    if ' 1 ' in chos :system("shutdown /s /t 0")                                       # shutting down                            
-    if ' 2 ' in chos :system("shutdown /r /t 0")                                       # restarting                               
-    if ' 5 ' in chos :system("shutdown /l")                                            # signing out                              
-    if ' 3 ' in chos :system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")        # sleeping mode                            
-    if ' 4 ' in chos:                                                                     # sening the notification                  
-        if iconn != '':                                                           # if there is icon notification settings   
-            notification.notify(
-            title = notnam,
-            message = masg,
-            timeout = 10,
-            app_icon = iconn,
-            )
-        else :                                                                            # if there is no icon notification settings
-            notification.notify(
-            title = notnam,
-            message = masg,
-            timeout = 10,
-            )
-    if ' 7 ' in chos :startfile(filelocation)                                          # opening ordered file                     
-    if ' 8 ' in chos :open(link)                                                          # opening ordered link                     
-    if ' 9 ' in chos :system(comm)                                                     # running the command                      
-    if ' 6 ' in chos :                                                                    # playing the music file                   
+    if ' 1 ' in choose :system("shutdown /s /t 0")                                       # shutting down                            
+    if ' 2 ' in choose :system("shutdown /r /t 0")                                       # restarting                               
+    if ' 5 ' in choose :system("shutdown /l")                                            # signing out                              
+    if ' 3 ' in choose :system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")        # sleeping mode    
+    if ' 4 ' in choose:                                                                  # setting the notification                  
+        if iconn != '':                                                                  # if there is icon notification settings   
+            notification.notify(						          
+            title = notnam,     						           
+            message = masg,							              
+            timeout = 10,							           
+            app_icon = iconn,							           
+            )									            
+        else :                                                                           # if there is no icon notification settings
+            notification.notify(						         
+            title = notnam,							           
+            message = masg,							           
+            timeout = 10,							          
+            )									          
+    if ' 7 ' in choose :startfile(filelocation)                                          # opening ordered file                     
+    if ' 8 ' in choose :open(link)                                                       # opening ordered link                     
+    if ' 9 ' in choose :system(comm)                                                     # running the command                      
+    if ' 6 ' in choose :                                                                 # playing the music file                   
         clear()
         pygame.init()
         pygame.mixer.music.load(orr)
