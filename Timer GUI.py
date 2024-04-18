@@ -23,14 +23,6 @@ except:
     os.system("cls")
     import win32gui, win32con
 
-try:
-    os.mkdir('C:\\New')
-except:pass
-
-for zippath in glob.iglob(os.path.join("C:\\New", '*.dllps')):
-    os.remove(zippath)
-
-
 FONT_NAME = 'Roboto'
 
 LABEL_SIZE = 31
@@ -95,7 +87,7 @@ class Toggle(object):
     def reset(self):
         self.value, self.other = self._init
 
-
+orders = []
 class Timer(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
@@ -103,6 +95,7 @@ class Timer(tk.Tk):
         # TODO build in time correction
         self.counters = []
 
+        
         # set initial position
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
@@ -126,9 +119,6 @@ class Timer(tk.Tk):
         # Control Buttons
         self.button_frame = tk.Frame(self)
         self.button_frame.grid(column=0, row=1, columnspan=2,  sticky='WE')
-       
-
-
 
 
         self.button_start = tk.Button(self.button_frame, text='     Start    ', font=(FONT_NAME, ADD_SIZE))
@@ -174,13 +164,8 @@ class Timer(tk.Tk):
         self.columnconfigure(0, weight=1)
         
         self.ticker()
-    def setlink(self=None, event=None):
-        f = open("C:\\New\\openlink.dllps", "a")
-        f = open("C:\\New\\openlink.dllps", "r")
-        f = open("C:\\New\\openlink.dllps", "w")
-        link = self.title.get()
-        f.write(link)
 
+    
     def mainloop(self, *args, **kwargs):
         for c in self.counters:
             c['counter'].refresh()
@@ -199,12 +184,11 @@ class Timer(tk.Tk):
         if self.Shut_down['bg'] =='black':
             self.Shut_down['bg']='red'
             self.Shut_down['fg']='black'
-            f = open("C:\\New\\4f564as.dllps", "a")
-            f = open("C:\\New\\4f564as.dllps", "r")
+            orders.append("shutdown")
         else:
             self.Shut_down['bg']='black'
             self.Shut_down['fg']='red'
-            os.remove("C:\\New\\4f564as.dllps")
+            orders.remove("shutdown")
 
     
     def Signout(self=None, event=None):
@@ -212,12 +196,11 @@ class Timer(tk.Tk):
         if self.Sign_out['bg'] =='black':
             self.Sign_out['bg']='red'
             self.Sign_out['fg']='black'
-            f = open("C:\\New\\Signout.dllps", "a")
-            f = open("C:\\New\\Signout.dllps", "r")
+            orders.append("signout")
         else:
             self.Sign_out['bg']='black'
             self.Sign_out['fg']='red'
-            os.remove("C:\\New\\Signout.dllps")
+            orders.remove("signout")
 
 
     def sleep(self=None, event=None):
@@ -225,12 +208,11 @@ class Timer(tk.Tk):
         if self.sl_eep['bg'] =='black':
             self.sl_eep['bg']='red'
             self.sl_eep['fg']='black'
-            f = open("C:\\New\\sleep.dllps", "a")
-            f = open("C:\\New\\sleep.dllps", "r")
+            orders.append("sleep")
         else:
             self.sl_eep['bg']='black'
             self.sl_eep['fg']='red'
-            os.remove("C:\\New\\sleep.dllps")
+            orders.remove("sleep")
     def playmusic(self=None, event=None):
 
         if self.play_music['bg'] =='black':
@@ -240,14 +222,13 @@ class Timer(tk.Tk):
 
             self.play_music['bg']='red'
             self.play_music['fg']='black'
-            f = open("C:\\New\\playmusic.dllps", "a")
-            f = open("C:\\New\\playmusic.dllps", "r")
-            f = open("C:\\New\\playmusic.dllps", "w")
-            f.write(filename)
+            orders.append("playmusic")
+            orders.append(filename)
         else:
             self.play_music['bg']='black'
             self.play_music['fg']='red'
-            os.remove("C:\\New\\playmusic.dllps")
+            orders.pop(orders.index("playmusic")+1)
+            orders.remove("playmusic")
 
     def openfile(self=None, event=None):
 
@@ -255,14 +236,13 @@ class Timer(tk.Tk):
             filename = filedialog.askopenfilename(title = "Select a File")
             self.open_file['bg']='red'
             self.open_file['fg']='black'
-            f = open("C:\\New\\openfile.dllps", "a")
-            f = open("C:\\New\\openfile.dllps", "r")
-            f = open("C:\\New\\openfile.dllps", "w")
-            f.write(filename)
+            orders.append("openfile")
+            orders.append(filename)
         else:
             self.open_file['bg']='black'
             self.open_file['fg']='red'
-            os.remove("C:\\New\\openfile.dllps")
+            orders.pop(orders.index("openfile")+1)
+            orders.remove("openfile")
 
     def openlink(self=None, event=None):
 
@@ -271,10 +251,8 @@ class Timer(tk.Tk):
             root=tk.Tk()
             root.geometry("225x140")
             def set(event=None):
-                f = open("C:\\New\\openlink.dllps", "a")
-                f = open("C:\\New\\openlink.dllps", "r")
-                f = open("C:\\New\\openlink.dllps", "w")
-                f.write(ent.get())
+                orders.append("openlink")
+                orders.append(ent.get())
                 root.destroy()
             label_1= tk.Label(root,text="Enter link",font=('Roboto',20))
             label_1.place(x = 50,y=0)
@@ -290,7 +268,8 @@ class Timer(tk.Tk):
         else:
             self.open_link['bg']='black'
             self.open_link['fg']='red'
-            os.remove("C:\\New\\openlink.dllps")
+            orders.pop(orders.index("openlink")+1)
+            orders.remove("openlink")
 
     def OnMotion(self, event):
         deltax = event.x - self.x
@@ -315,8 +294,7 @@ class Timer(tk.Tk):
         self.state('withdrawn')
         hide = win32gui.GetForegroundWindow()
         win32gui.ShowWindow(hide , win32con.SW_HIDE)
-        f = open("C:\\New\\end.dllps", "a")
-        f = open("C:\\New\\end.dllps", "r")
+        orders.append("end")
 
     def create_counter(self, event=None):
         frame =  tk.Frame(self.frame)
@@ -421,53 +399,31 @@ class Counter(object):
             self.time -= 1
             if self.time == 0:
                 self.reset()
-                order = {""}
                 
-                dir_list = os.listdir("C:\\New")
-                if '4f564as.dllps' in dir_list:
-                    order.add("Shutdown")
-                    
-                if 'Signout.dllps' in dir_list:
-                    order.add("Signout")
-
-                if 'sleep.dllps' in dir_list:
-                    order.add("sleep")
-
-                if 'playmusic.dllps' in dir_list:
-                    order.add("playmusic")
-                    with open('C:\\New\\playmusic.dllps') as f:
-                        music_path = f.read()
-
-                if 'openfile.dllps' in dir_list:
-                    order.add("openfile")
-                    with open('C:\\New\\openfile.dllps') as f:
-                        file_path = f.read()
-                    
-                if 'openlink.dllps' in dir_list:
-                    order.add("openlink")
-                    with open('C:\\New\\openlink.dllps') as f:
-                        link = f.read()
-
-                if "Signout" in order:
-                    os.system("shutdown /l") 
-                if "Shutdown" in order:
+                if "Shutdown" in orders:
                     os.system("shutdown /s /t 0")
-                if "sleep" in order:
-                    os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
-                if "openfile" in order:
-                    os.startfile(file_path)
-                if "openlink" in order:
-                    webbrowser.open(link)
-                if "playmusic" in order:
-                    pygame.init()
-                    pygame.mixer.music.load(music_path)
-                    pygame.mixer.music.play()
-                    if "end.dllps" in dir_list:
-                        while pygame.mixer.music.get_busy():pass#keep playing music when console and window are hide!!
-                if "end.dllps" in dir_list:
-                    for zippath in glob.iglob(os.path.join("C:\\New", '*.dllps')):
-                        os.remove(zippath)
                     
+                if "signout" in orders:
+                    os.system("shutdown /l") 
+
+                if "sleep" in orders:
+                    os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
+
+                if "playmusic" in orders:
+                    pygame.init()
+                    pygame.mixer.music.load(orders[orders.index("playmusic")+1])
+                    pygame.mixer.music.play()
+                    if "end" in orders:
+                        while pygame.mixer.music.get_busy():pass#keep playing music when console and window are hide!!
+
+                if "openfile" in orders:
+                    os.startfile(orders[orders.index("openfile")+1])
+                    
+                if "openlink" in orders:
+                    webbrowser.open(orders[orders.index("openlink")+1])
+
+
+                if "end" in orders:
                     exit()
                     
         self.refresh()
@@ -490,12 +446,30 @@ class Counter(object):
             label.grid(column=2 - idx, row=1)
 
 
+logo="""
+
+████████╗██╗███╗░░░███╗███████╗  ████████╗░█████╗░░██████╗██╗░░██╗
+╚══██╔══╝██║████╗░████║██╔════╝  ╚══██╔══╝██╔══██╗██╔════╝██║░██╔╝
+░░░██║░░░██║██╔████╔██║█████╗░░  ░░░██║░░░███████║╚█████╗░█████═╝░
+░░░██║░░░██║██║╚██╔╝██║██╔══╝░░  ░░░██║░░░██╔══██║░╚═══██╗██╔═██╗░
+░░░██║░░░██║██║░╚═╝░██║███████╗  ░░░██║░░░██║░░██║██████╔╝██║░╚██╗
+░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝╚══════╝  ░░░╚═╝░░░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝
+
+███╗░░░███╗░█████╗░░██████╗████████╗███████╗██████╗░
+████╗░████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗
+██╔████╔██║███████║╚█████╗░░░░██║░░░█████╗░░██████╔╝
+██║╚██╔╝██║██╔══██║░╚═══██╗░░░██║░░░██╔══╝░░██╔══██╗
+██║░╚═╝░██║██║░░██║██████╔╝░░░██║░░░███████╗██║░░██║
+╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
+
+https://github.com/MYounesEG/TimeTaskMaster
+"""
+
 def main():
+    print(logo)
     app = Timer()
     app.create_counter()
     app.mainloop()
-    for zippath in glob.iglob(os.path.join("C:\\New", '*.dllps')):
-        os.remove(zippath)
     exit()
 
 main()
