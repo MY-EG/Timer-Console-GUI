@@ -45,6 +45,7 @@ This Python script provides a countdown timer with customizable actions to perfo
 ![image](https://github.com/MYounesEG/TimeTaskMaster/assets/158834031/1929411f-7195-4728-ae02-71a0b205d385)
 ![image](https://github.com/MYounesEG/TimeTaskMaster/assets/158834031/c7e8aa46-824d-4414-9456-394fda1de1ef)
 ![image](https://github.com/MYounesEG/TimeTaskMaster/assets/158834031/5cfd8bd6-aeaa-47e4-acda-cb85d42536fe)
+![image](https://github.com/MYounesEG/TimeTaskMaster/assets/158834031/63db09f0-789a-411f-bcce-04c894737ff2)
 
 
 ## Contributing
